@@ -1,0 +1,12 @@
+[Unit]
+Description=Network Auto-configuration
+After=network.target
+[Service]
+ExecStart=/usr/bin/python3 network_autoconfig.py
+WorkingDirectory=/home/pi/MAE481/comms/network_autoconfig
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+[Install]
+WantedBy=multi-user.target

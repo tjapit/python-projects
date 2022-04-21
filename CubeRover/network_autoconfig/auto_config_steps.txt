@@ -1,0 +1,79 @@
+1. Setting static IP addr on Pi:
+	In etc/dhcpcd.conf, enter:
+		interface wlan0
+		static ip_address=192.168.1.52/24
+		static routers=192.168.1.1
+		static domain_name_servers=192.168.1.1
+		
+2. Linux networking commands:
+	- ifconfig - enable wireless device (wlan0 is the interface for Pi wifi usually)
+		i.e. ifconfig wlan0 {up|down} - enable or disable wifi***
+	- iwlist - list available wireless APs***
+	- iwconfig - configure wireless connection***
+	- dhclient - get IP address via dhcp
+	- wpa_supplicant - for WPA Personal Auth*** 
+	(config file: /etc/wpa_supplicant/wpa_supplicant.conf)
+	[parameters: -B, run in bg; -i, interface name; -D, driver; -c, config file location]
+	{working: wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf}
+	{delete file if done once but not working, rm /var/run/wpa_supplicant/wlan0}
+	
+	- wpa_passphrase - generate a PSK string for wpa_supplicant config file
+	{wpa_passphrase SSID PASSWORD}
+	
+3. Python libraries:
+	- os - os.system() to enter commands in terminal
+#	- nmcli - radio wifi {on|off}, dev status 
+#	(if no list, check /etc/NetworkManager/NetworkManager.conf)
+
+4. wpa_supplicant.conf:
+	1. Generate hex passphrase with wpa_passphrase [SSID] [PASS]
+	2. Set 'update-config' to 0
+	3. Write 
+		network={
+			ssid="SSID_HERE"
+			psk=hex_string_without_quotes
+			key_mgmt=WPA-PSK
+		}
+	4. run wpa_supplicant -B yadda yadda...
+	5. when in doubt, 'rm /var/run/wpa_supplicant/wlan0' and then killall
+	6. rerun and should work
+
+
+5. network autoconfig startup service:
+	1. create network_autoconfig.service and point the working directory
+	and check the file name of the script is correct
+	2. copy the .service file to /etc/systemd/system/
+	3. on command line, "systemctl start network_autoconfig.service" to
+	test the script
+	4. on command line, "systemctl enable network_autoconfig.service" to
+	run it on boot 
+
+6. Persistent auto config after startup:
+	1. check permission, add 'sudo' to killall, wpa_supplicant, etc
+	2. try running the script without root access
+	3. just wait. add more sleep intervals.
+	
+*. General Linux commands:
+	- apt/apt-get - install or manage packages installed
+	- sudo bash - root access
+	- chmod - modify access to files
+	- touch - make new file
+	- nano - CLI text editor
+	- htop - show background processes
+	- systemctl - system wide control
+	{systemctl list-unit-files --type=service | grep enabled - lists 
+	all of the enabled services}
+	
+# NOT WORKING
+
+# NetworkManager collides with systemd, don't use
+#2. Installing nmcli:
+#	sudo bash - for root access
+#	apt update - update source
+#	apt install network-manager - main package
+#	apt install links - idk 
+#	man nmcli - manual
+
+
+
+

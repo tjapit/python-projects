@@ -28,7 +28,7 @@ class LinkedList:
         # empty list
         if self.is_empty():
             # construct node with the value and add to list
-            self._front = ListNode(value)
+            self._front = ListNode(value, None)
         # beginning of list
         if idx == 0:
             # construct new node with its next node as front
@@ -45,7 +45,7 @@ class LinkedList:
                 current = current._next
                 i += 1
             # construct new node with value to the middle/end of list
-            current._next = self.ListNode(value, current._next) if idx != self.size() else self.ListNode(value)
+            current._next = ListNode(value, current._next) if idx != self.size() else ListNode(value, None)
 
         # increment size count
         self._size += 1
@@ -85,8 +85,6 @@ class ListNode:
         self._value = value
         self._next = next
     
-    def __init__(self, value: int) -> None:
-        self(self, value, None)
 
     def get_value(self) -> int:
         """ Returns the value in the node

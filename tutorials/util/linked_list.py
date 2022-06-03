@@ -116,8 +116,16 @@ class LinkedList:
         Return:
             LinkedList:copy of the list with reversed order
         """
+        # construct a new linked list
         newlist:LinkedList = LinkedList()
         
+        # traverse through the list
+        current = self._front
+        while current != None:
+            # add current value to front of new list
+            newlist.add(current.getvalue(), 0)
+            # traversal
+            current = current._next
 
         return newlist
 

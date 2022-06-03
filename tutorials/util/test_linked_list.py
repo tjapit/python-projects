@@ -109,25 +109,29 @@ class TestLinkedList(unittest.TestCase):
 
         # call reverse(), check content [5, 1, 3, 2]
         __reversedlist: LinkedList = self.__newlist.reverse()
-        self.assertEqual(5, self.__newlist.front())
-        self.assertEqual(4, self.__newlist.size())
-        self.assertFalse(self.__newlist.is_empty())
+        self.assertEqual(5, __reversedlist.front())
+        self.assertEqual(4, __reversedlist.size())
+        self.assertFalse(__reversedlist.is_empty())
         
-        self.assertEqual(5, self.__newlist.remove(0))
-        self.assertEqual(3, self.__newlist.size())
-        self.assertFalse(self.__newlist.is_empty())
+        # [1, 3, 2] removed: 5
+        self.assertEqual(5, __reversedlist.remove(0))
+        self.assertEqual(3, __reversedlist.size())
+        self.assertFalse(__reversedlist.is_empty())
 
-        self.assertEqual(1, self.__newlist.remove(0))
-        self.assertEqual(2, self.__newlist.size())
-        self.assertFalse(self.__newlist.is_empty())
+        # [3, 2] removed: 1
+        self.assertEqual(1, __reversedlist.remove(0))
+        self.assertEqual(2, __reversedlist.size())
+        self.assertFalse(__reversedlist.is_empty())
 
-        self.assertEqual(3, self.__newlist.remove(0))
-        self.assertEqual(1, self.__newlist.size())
-        self.assertFalse(self.__newlist.is_empty())
+        # [2] removed: 3
+        self.assertEqual(3, __reversedlist.remove(0))
+        self.assertEqual(1, __reversedlist.size())
+        self.assertFalse(__reversedlist.is_empty())
 
-        self.assertEqual(2, self.__newlist.remove(0))
-        self.assertEqual(0, self.__newlist.size())
-        self.assertTrue(self.__newlist.is_empty())
+        # [] removed: 2
+        self.assertEqual(2, __reversedlist.remove(0))
+        self.assertEqual(0, __reversedlist.size())
+        self.assertTrue(__reversedlist.is_empty())
         
 
 

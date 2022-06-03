@@ -14,6 +14,13 @@ class TestLinkedList(unittest.TestCase):
         # construct list
         self.__newlist: LinkedList = LinkedList()
 
+    def setup_list(self):
+        """ Adds element to list for tests that require a filled list """
+        self.__newlist.add(1, 0) # [1]
+        self.__newlist.add(2, 0) # [2, 1]
+        self.__newlist.add(3, 1) # [2, 3, 1]
+        self.__newlist.add(5, self.__newlist.size()) # [2, 3, 1, 5]
+
     # @classmethod
     # def setUpClass(cls) -> None:
     #     """ **Still need to use self. """
@@ -61,11 +68,8 @@ class TestLinkedList(unittest.TestCase):
         # raises IndexError if empty list
         with self.assertRaises(IndexError):
             self.__newlist.remove(0)
-        # add items to list 
-        self.__newlist.add(1, 0) # [1]
-        self.__newlist.add(2, 0) # [2, 1]
-        self.__newlist.add(3, 1) # [2, 3, 1]
-        self.__newlist.add(5, self.__newlist.size()) # [2, 3, 1, 5]
+        # add items to list [2, 3, 1, 5]
+        self.setup_list()
         # raises IndexError if index out of bounds
         with self.assertRaises(IndexError):
             self.__newlist.remove(-1)
@@ -95,6 +99,36 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(0, self.__newlist.size())
         self.assertTrue(self.__newlist.is_empty())
 
+
+    def test_reverse(self):
+        # setup list [2, 3, 1, 5]
+        self.setup_list()
+        self.assertEqual(4, self.__newlist.size())
+        self.assertEqual(2, self.__newlist.front())
+        self.assertFalse(self.__newlist.is_empty())
+
+        # call reverse(), check content [5, 1, 3, 2]
+        __reversedlist: LinkedList = self.__newlist.reverse()
+        self.assertEqual(5, self.__newlist.front())
+        self.assertEqual(4, self.__newlist.size())
+        self.assertFalse(self.__newlist.is_empty())
+        
+        self.assertEqual(5, self.__newlist.remove(0))
+        self.assertEqual(3, self.__newlist.size())
+        self.assertFalse(self.__newlist.is_empty())
+
+        self.assertEqual(1, self.__newlist.remove(0))
+        self.assertEqual(2, self.__newlist.size())
+        self.assertFalse(self.__newlist.is_empty())
+
+        self.assertEqual(3, self.__newlist.remove(0))
+        self.assertEqual(1, self.__newlist.size())
+        self.assertFalse(self.__newlist.is_empty())
+
+        self.assertEqual(2, self.__newlist.remove(0))
+        self.assertEqual(0, self.__newlist.size())
+        self.assertTrue(self.__newlist.is_empty())
+        
 
 
 

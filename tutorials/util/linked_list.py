@@ -110,7 +110,16 @@ class LinkedList:
             return None
         return self._front.getvalue()
 
+    def reverse(self) -> Self:
+        """ Returns a copy of the LinkedList with its elements in reversed order
+        
+        Return:
+            LinkedList:copy of the list with reversed order
+        """
+        newlist:LinkedList = LinkedList()
+        
 
+        return newlist
 
 
 class ListNode:

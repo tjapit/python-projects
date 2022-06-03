@@ -29,7 +29,7 @@ class LinkedList:
         if self.is_empty():
             # construct node with the value and add to list
             self._front = ListNode(value, None)
-        # beginning of list
+        # adding to beginning of list
         if idx == 0:
             # construct new node with its next node as front
             newNode: ListNode = ListNode(value, self._front)
@@ -38,7 +38,7 @@ class LinkedList:
         # elsewhere
         else:    
             # set current to front of list
-            current = self._front
+            current:ListNode = self._front
             # traverse list until index-1 is reached
             i:int = 0
             while i < idx - 1 and current._next != None:
@@ -56,7 +56,36 @@ class LinkedList:
         Return:
             int:element removed
         """
-        pass
+        # out of bounds or empty list
+        if (idx < 0 or idx >= self._size or self.is_empty()):
+            raise IndexError
+        # removed element
+        removed:int = -1
+        # remove from beginning of list
+        if idx == 0:
+            # store value from the node
+            removed = self._front.getvalue()
+            # move front pointer to the next node
+            self._front = self._front._next
+        # elsewhere
+        else:
+            # set current to front of list
+            current:ListNode = self._front
+            # traverse list until index-1
+            i:int = 0
+            while i < idx - 1 and current._next != None:
+                current = current._next
+                i += 1
+            # store value in the node to be removed
+            removed = current._next.getvalue()
+            test = current._next._next
+            # remove element by skipping ahead one node from current._next if middle element or None if at the end
+            current._next = current._next._next if current._next == None else None
+
+        # decrement size
+        self._size -= 1
+        # return removed element
+        return removed
 
     def is_empty(self) -> bool:
         """ Returns True if the list is empty
@@ -75,7 +104,7 @@ class LinkedList:
         """
         if self.is_empty():
             return None
-        return self._front.get_value()
+        return self._front.getvalue()
 
 
 
@@ -86,7 +115,7 @@ class ListNode:
         self._next = next
     
 
-    def get_value(self) -> int:
+    def getvalue(self) -> int:
         """ Returns the value in the node
         
         Return:

@@ -80,7 +80,11 @@ class LinkedList:
             removed = current._next.getvalue()
             test = current._next._next
             # remove element by skipping ahead one node from current._next if middle element or None if at the end
-            current._next = current._next._next if current._next == None else None
+            # if current._next._next != None:
+            #     current._next = current._next._next
+            # else:
+            #     current._next = None
+            current._next = current._next._next if current._next._next != None else None
 
         # decrement size
         self._size -= 1

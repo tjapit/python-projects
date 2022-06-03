@@ -83,14 +83,14 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(2, self.__newlist.size())
         self.assertFalse(self.__newlist.is_empty())
 
-        # remove end, after: [5], removed: 3
-        self.assertEqual(3, self.__newlist.remove(0))
-        self.assertEqual(5, self.__newlist.front())
+        # remove end, after: [3], removed: 5
+        self.assertEqual(5, self.__newlist.remove(self.__newlist.size() - 1))
+        self.assertEqual(3, self.__newlist.front())
         self.assertEqual(1, self.__newlist.size())
         self.assertFalse(self.__newlist.is_empty())
 
-        # remove last, after: [], removed: 5
-        self.assertEqual(5, self.__newlist.remove(0))
+        # remove last, after: [], removed: 3
+        self.assertEqual(3, self.__newlist.remove(0))
         self.assertEqual(None, self.__newlist.front())
         self.assertEqual(0, self.__newlist.size())
         self.assertTrue(self.__newlist.is_empty())

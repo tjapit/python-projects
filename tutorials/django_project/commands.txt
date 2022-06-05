@@ -1,0 +1,18 @@
+py manage.py:
+- startapp = initialize app
+- runserver = run test server
+- makemigrations = recognize the changes made to the db
+- migrate = push the changes made
+- sqlmigrate = show the SQL commands done by ORM from class to model
+- shell = run django commands in python shell
+    >>> from blog.models import Post
+    >>> from django.contrib.auth.models import User
+    >>> User.objects.all() //returns a QuerySet
+    >>> User.objects.first() //returns the first User
+    >>> User.objects.filter(username='tjapit') //returns a QuerySet
+    >>> User.objects.filter(username='tjapit').first() //returns the first User from the previous QuerySet
+    >>> user = User.objects().first()
+    >>> post_1 = Post(title='Post 1', content='First Post Content!', author=user) //at this point Post.objects.all() still returns empty QuerySet
+    >>> post_1.save() //to save to database
+    >>> post_1.author.email //can get the author's email from a post/foreign key
+    >>> user.post_set.first() //can also access the set of posts by the author

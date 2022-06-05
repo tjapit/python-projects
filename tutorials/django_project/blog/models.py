@@ -14,5 +14,7 @@ class Post(models.Model):
     # User @OneToMany Post
     # on_delete=models.CASCADE: delete Post if User is deleted
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    
 
+    def __str__(self) -> str:
+        return self.title
+    

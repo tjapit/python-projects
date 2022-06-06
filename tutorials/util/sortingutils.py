@@ -63,6 +63,7 @@ class SortingUtils:
         # return sorted array
         return array
 
+    @staticmethod
     def bubblesort(array:list) -> list:
         """Sorts the given list using bubblesort
         

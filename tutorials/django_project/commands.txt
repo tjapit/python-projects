@@ -15,4 +15,5 @@ py manage.py:
     >>> post_1 = Post(title='Post 1', content='First Post Content!', author=user) //at this point Post.objects.all() still returns empty QuerySet
     >>> post_1.save() //to save to database
     >>> post_1.author.email //can get the author's email from a post/foreign key
-    >>> user.post_set.first() //can also access the set of posts by the author
+    >>> user.post_set.first() //can also access the set of posts by the author ([user].[modelname]_set.[method])
+    >>> user.post_set.create(title='Blog 3', content='Third Post Content!') //create another post using post_set

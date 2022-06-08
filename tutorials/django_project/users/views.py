@@ -15,9 +15,9 @@ def register(request):
             # form.cleaned_data is a dictionary containing data converted to python types
             username = form.cleaned_data.get('username')
             # flash message to indicate success in creating new account
-            messages.success(request, f'Account created for {username}!')
-            # redirect user to homepage name
-            return redirect('blog-home')
+            messages.success(request, f'Your account has been created! You can now login.')
+            # redirect user to the login page
+            return redirect('login')
     else:
         # else return a blank page
         form = UserRegisterForm()

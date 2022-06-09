@@ -130,4 +130,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # For crispy looking forms (django-crispy-forms)
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Redirect user to blog after logging in as the default behavior
 LOGIN_REDIRECT_URL = 'blog-home'
+
+# Set the login URL for Django to find the name='login' defined in urls.py
+LOGIN_URL = 'login'

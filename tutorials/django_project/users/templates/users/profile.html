@@ -9,6 +9,21 @@
                 <p class="text-secondary">{{ user.email }}</p>
             </div>
         </div>
-        {% comment %} FORM HERE {% endcomment %}
+
+        {% comment %} NOTE: REMEMBER TO ADD enctype {% endcomment %}
+        <form method="POST" enctype="multipart/form-data">
+            {% comment %} need to have csrf for django, otherwise form won't work
+            {% endcomment %}
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {% comment %} 2 forms joined together to make it seem continuous {% endcomment %}
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary btn-block" type="submit">Update Profile</button>
+            </div>
+        </form>
     </div>
 {% endblock content %}

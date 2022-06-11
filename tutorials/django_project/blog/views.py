@@ -1,14 +1,18 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.views.generic import (
     ListView, 
     DetailView, 
-    CreateView
+    CreateView,
+    UpdateView,
 )
 from typing import (
     Optional, 
     Union, 
-    Sequence
+    Sequence,
 )
 from .models import Post
 
@@ -47,6 +51,20 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         # before passing it to the form valid checker 
         return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content']
+    # template default naming for CreateView and UpdateView is <model>_form.html
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self) -> Optional[bool]:
+        """ Checks if the User passes a certain test. In this case, a User can only update a Post if they are the author of the Post """
+        post = self.get_object()
+        return True if self.request.user == post.author else False
 
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})

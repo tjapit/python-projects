@@ -8,6 +8,7 @@ from django.views.generic import (
     DetailView, 
     CreateView,
     UpdateView,
+    DeleteView,
 )
 from typing import (
     Optional, 
@@ -65,6 +66,16 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         """ Checks if the User passes a certain test. In this case, a User can only update a Post if they are the author of the Post """
         post = self.get_object()
         return True if self.request.user == post.author else False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url: Optional[str] = '/'
+
+    def test_func(self) -> Optional[bool]:
+        """ Checks if the User passes a certain test. In this case, a User can only delete a Post if they are the author of the Post """
+        post = self.get_object()
+        return True if self.request.user == post.author else False
+
 
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})

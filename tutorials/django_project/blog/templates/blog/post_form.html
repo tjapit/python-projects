@@ -3,18 +3,30 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
-    <form method="POST">
-        {% comment %} need to have csrf for django, otherwise form won't work
-        {% endcomment %}
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Blog Post</legend>
-            {% comment %} vertical bar (|) use crispy to style form {% endcomment %}
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-primary btn-block" type="submit">Post</button>
-        </div>
-    </form>
+  <form method="POST">
+    {% comment %} need to have csrf for django, otherwise form won't work
+    {% endcomment %}
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Blog Post</legend>
+      {% comment %} vertical bar (|) use crispy to style form {% endcomment %}
+      {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-primary btn-block" type="submit">
+        Post
+      </button>
+      {% comment %} cancel routing, new post->home, update->current post {% endcomment %}
+      <a class="btn btn-outline-danger btn-block" 
+        href=
+            {% if object.id %}
+                "{% url 'post-detail' object.id %}"
+            {% else %}
+                "{% url 'blog-home' %}"
+            {% endif %}>
+        Cancel
+      </a>
+    </div>
+  </form>
 </div>
 {% endblock content %}

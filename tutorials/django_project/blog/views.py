@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin,
@@ -40,6 +41,18 @@ class PostListView(ListView):
 
     # pagination attribute, # posts/page
     paginate_by: int = 5
+
+class UserPostListView(ListView):
+    """ ListView for Posts by a specific User """
+    model = Post
+    template_name: str = 'blog/user_posts.html'
+    context_object_name: Optional[str] = 'posts'
+    paginate_by: int = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
+
 
 class PostDetailView(DetailView):
     """ Class-based view following Django's convention """

@@ -1,6 +1,9 @@
 {% extends 'blog/base.html' %}
 {% comment %} inheriting from parent template {% endcomment %}
 {% block content %}
+    {% comment %} Header {% endcomment %}
+    <h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+
     {% comment %} Pagination {% endcomment %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
@@ -33,7 +36,8 @@
             </a>
         {% endif %}
     {% endif %}
-
+    
+    {% comment %} Posts {% endcomment %}
     {% for post in posts %}
     <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="Author Profile Picture">

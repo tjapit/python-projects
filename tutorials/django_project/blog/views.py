@@ -38,6 +38,7 @@ class PostListView(ListView):
     # ordering Posts by most recently posted ('-' indicates reversed order)
     ordering: Optional[Union[str, Sequence[str]]] =  '-date_posted'
 
+    # pagination attribute, # posts/page
     paginate_by: int = 5
 
 class PostDetailView(DetailView):

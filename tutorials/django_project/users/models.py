@@ -18,9 +18,9 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return f'{self.user.username} Profile'
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """ Resize image if it is larger than max size before saving """
-        super().save()
+        super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
 

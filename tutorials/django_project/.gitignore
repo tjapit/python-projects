@@ -1,5 +1,7 @@
+.*env/
 .env
 *.pyc
+__pycache__/
 _*.html
 profile_pics
 *.log
